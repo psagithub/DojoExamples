@@ -1,0 +1,86 @@
+These are different form elements.
+<br>
+<br>
+<table cellspacing="15">
+	<tr>
+		<td>Currency Textbox</td>
+		<td>&nbsp;:&nbsp;</td>
+		<td><input type="text" name="sal" id="sal" value="54775.00"
+			required="true" data-dojo-type="dijit/form/CurrencyTextBox"
+			data-dojo-props="constraints:{fractional:true},
+    currency:'INR',
+    invalidMessage:'Invalid amount. Paise required.'" />
+		</td>
+	</tr>
+	<tr>
+		<td>Date Textbox</td>
+		<td>&nbsp;:&nbsp;</td>
+		<td>From: <input type="text" name="fromDate" id="fromDate"
+			data-dojo-id="fromDate" value="2012-12-30"
+			data-dojo-type="dijit/form/DateTextBox" required="true"
+			onChange="toDate.constraints.min = arguments[0];" /> To: <input
+			type="text" name="toDate" id="toDate" data-dojo-id="toDate"
+			value="2013-01-23" data-dojo-type="dijit/form/DateTextBox"
+			onChange="fromDate.constraints.max = arguments[0];" /> (with min/max
+			constraints.)
+		</td>
+	</tr>
+	<tr>
+		<td>Number Spinner</td>
+		<td>&nbsp;:&nbsp;</td>
+		<td>
+			<div id="numberSelector" data-dojo-type="dijit/form/NumberSpinner"
+				data-dojo-props="intermediateChanges:true, constraints:{min:0,max:40}, value:8, 
+				smallDelta: 4, style: 'width:60px'"
+				id="temperatureCelsius">
+				<script type="dojo/on" data-dojo-event="change">
+					var cutoffPoints = [
+    					{over:36, color:"darkred"},
+    					{over:32, color:"lightred"},
+   						{over:24, color:"green"},
+    					{over:12, color:"lightblue"},
+						{over:-1, color:"white"}
+					];
+        			var self = this;
+        			require(["dojo/_base/array", "dojo/dom-style", "dojo/dom"], function(array, domStyle, dom){
+            			var tempColor = array.filter(cutoffPoints, function(temp){
+                			return self.getValue() > temp.over;
+            			})[0].color;
+            			domStyle.set(self.domNode.lastChild, "backgroundColor", tempColor);
+        			});
+	</script>
+			</div>
+		</td>
+	</tr>
+	<tr>
+		<td valign="top">Textarea</td>
+		<td valign="top">&nbsp;:&nbsp;</td>
+		<td><textarea id="txtArea" name="txtArea"
+				data-dojo-type="dijit/form/SimpleTextarea" rows="4" cols="50">Some sample text.</textarea>
+		</td>
+	</tr>
+	<tr>
+		<td>Time Textbox</td>
+		<td>&nbsp;:&nbsp;</td>
+		<td><input type="text" name="time" id="time" value="T12:00:00"
+			data-dojo-props="constraints:{clickableIncrement:'T00:30', 
+			visibleIncrement:'T00:30', visibleRange:'T02:00', timePattern:'HH:mm'}"
+			data-dojo-type="dijit/form/TimeTextBox"
+			onChange="dojo.byId('selectedTime').innerHTML=dojo.byId('time').value"
+			required="true" />&nbsp; (The constraint details on showing the time
+			picker are referenced from _TimePicker class)</td>
+		<td><div id="selectedTime">12:00</div> (24 hours format)</td>
+	</tr>
+	<tr>
+		<td>Simple combo box</td>
+		<td>&nbsp;:&nbsp;</td>
+		<td>
+			<div data-dojo-type="dojo/data/ItemFileReadStore" data-dojo-id="storeForCourses" 
+				data-dojo-props="url:'GetCourses?for=select'">
+			</div>
+			<select name="comboCourses" id="comboCourses" data-dojo-type="dijit/form/ComboBox" 
+				data-dojo-props="store:storeForCourses, searchAttr:'name'"></select>
+		</td>
+	</tr>
+</table>
+

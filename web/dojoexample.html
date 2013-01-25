@@ -1,0 +1,129 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<title>DOJO Examples</title>
+<link rel="StyleSheet" type="text/css" href="/dojo/dojo/resources/dojo.css">
+<link rel="StyleSheet" type="text/css" href="css/examples.css">
+<link rel="stylesheet" href="/dojo/dijit/themes/claro/claro.css"
+	media="screen">
+<style type="text/css">
+@import "/dojo/dojox/grid/resources/claroGrid.css";
+
+@import "/dojo/dojox/grid/enhanced/resources/EnhancedGrid.css";
+
+@import "/dojo/dojox/grid/enhanced/resources/EnhancedGrid_rtl.css";
+
+@import "/dojo/dojox/widget/Toaster/Toaster.css";
+
+#simpleGrid,#enhancedGrid {
+	height: 20em;
+}
+</style>
+<script type="text/javascript">
+	var djConfig = {
+		baseScriptUri : "/dojo/",
+		parseOnLoad : true
+	};
+</script>
+<script type="text/javascript" src="/dojo/dojo/dojo.js"></script>
+<script type="text/javascript" src="js/examples.js"></script>
+</head>
+<body class="claro">
+	<!-- Creating the frame - Header, left and right pane. -->
+	<div id="layoutContainer" class="layoutRoot"
+		data-dojo-type="dijit/layout/BorderContainer"
+		data-dojo-props="design: 'headline'">
+		<div id="headPane" class="edgePanel"
+			data-dojo-type="dijit/layout/ContentPane"
+			data-dojo-props="region: 'top', align:'center'"
+			style="font-weight: bold;">DOJO Examples</div>
+		<div id="leftPane" class="edgePanel"
+			data-dojo-type="dijit/layout/ContentPane"
+			data-dojo-props="region: 'left', splitter: true">
+			<!-- Placing the div for showing the tree. -->
+			<div id="divCourse"
+				title="Right clicking on me will give you the context menu..."
+				style="margin-top: 20px;"center"></div>
+		</div>
+		<div id="tabContainer" class="centerPanel"
+			data-dojo-type="dijit/layout/TabContainer"
+			data-dojo-props="region: 'center', tabPosition: 'bottom'">
+			<div id="tabGrid" data-dojo-type="dijit/layout/ContentPane"
+				title="Grid">
+				<div id="titleInitial">Select a course to view all enrolled
+					students.</div>
+				<br> <br>
+				<div style="margin-left: 20px">
+					<div id="titleSimpleGrid" style="display: none;">
+						<b><u>Simple Grid</u></b>
+					</div>
+					<br>
+					<div id="divStudentsGrid"></div>
+					<br> <br>
+					<div id="titleEnhancedGrid" style="display: none;">
+						<b><u>Enhanced Grid</u></b>&nbsp; (with DnD, Context Menu and Pagination
+						support)
+					</div>
+					<br>
+					<div id="divStudentsEnhancedGrid">
+						<div data-dojo-type="dijit.Menu" id="gridMenuForCell"
+							style="display: none;">
+							<div data-dojo-id="gridMenuSelectMe" id="gridMenuSelectMe"
+								data-dojo-type="dijit.MenuItem">Select Me!</div>
+							<div data-dojo-id="gridMenuRefreshData" id="gridMenuRefreshData"
+								data-dojo-type="dijit.MenuItem">Refresh Data!</div>
+						</div>
+						<div data-dojo-type="dojox/widget/Toaster" style="display: none;"
+							id="toasterSelectedCell"></div>
+					</div>
+					<br> <br>
+				</div>
+			</div>
+			<div id="tabFormElements" data-dojo-type="dijit/layout/ContentPane"
+				title="Form Elements" href="pages/form-elements.html" />
+		</div>
+	</div>
+
+	<script id="EditStudFormTemplate" type="text/html">
+		<form data-dojo-attach-point="containerNode"
+			data-dojo-attach-event="onsubmit:_onSubmit" onsubmit="return false;">
+				<table cellpadding="5" cellspacing="10" border="0"
+					style="margin: 20px;">
+					<tr>
+						<td>${i18n.id}</td>
+						<td>&nbsp;:&nbsp;</td>
+						<td><input name="id" data-dojo-type="dijit.form.TextBox" readOnly="true" 
+							required="true"></td>
+					</tr>
+					<tr>
+						<td>${i18n.name}</td>
+						<td>&nbsp;:&nbsp;</td>
+						<td><input type="text" name="name" data-dojo-type="dijit.form.ValidationTextBox"
+							 required="true" data-dojo-props="regExp:'[A-Za-z0-9. ]{4,}', invalidMessage:'${i18n.nameRules}'">
+						</td>
+					</tr>
+					<tr>
+						<td>${i18n.age}</td>
+						<td>&nbsp;:&nbsp;</td>
+						<td><input name="age" data-dojo-type="dijit.form.ValidationTextBox"
+							data-dojo-props="regExp:'[0-9]{1,2}', invalidMessage:'${i18n.ageRules}'" required="true"></td>
+					</tr>
+					<tr>
+						<td>${i18n.email}</td>
+						<td>&nbsp;:&nbsp;</td>
+						<td><input name="email" data-dojo-type="dijit.form.ValidationTextBox"
+							data-dojo-props="regExp:dojox.validate.regexp.emailAddress, 
+							invalidMessage:'${i18n.emailRules}'" required="true"></td>
+					</tr>
+					<tr>
+						<td colspan="3" align="right">
+							<button name="btnSubmitForm" data-dojo-type="dijit.form.Button"
+								type="submit">${i18n.save}</button>
+						</td>
+					</tr>
+				</table>
+		</form>
+	</script>
+</body>
+</html>
